@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>420Leafly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body { background:#0e0e0e; color:#aaffaa; font-family:'Orbitron',sans-serif; margin:0; }
+    header { background:#1a1a1a; padding:1em; text-align:center; font-size:2em; color:#50ff50; }
+    #searchBar { margin:1em auto; display:block; padding:0.5em; width:80%; border-radius:5px; border:none; font-size:1em; }
+    .strain-card { background:#1e1e1e; border:1px solid #333; border-radius:10px; margin:1em auto; padding:1em; max-width:600px; }
+    .strain-img { width:100%; border-radius:10px; }
+    .btn-map { background:#50ff50; color:#000; padding:0.5em 1em; text-decoration:none; border-radius:5px; display:inline-block; margin-top:0.5em; }
+    footer { background:#1a1a1a; text-align:center; padding:1em; font-size:0.9em; color:#888; margin-top:2em; }
+  </style>
+</head>
+<body>
+  <header>🌿 420Leafly</header>
+  <input type="text" id="searchBar" placeholder="Search for a cannabis strain..." onkeyup="filterStrains()">
+
+  <main id="strainList" style="display:flex;flex-direction:column;align-items:center;"></main>
+
+  <footer>
+    Contact: WhatsApp: 0758172672 | Instagram: <a style="color:#88ff88;" href="https://instagram.com/420.xris" target="_blank">@420.xris</a><br>
+    Made by Xris420
+  </footer>
+
+  <script>
+    const strains = [{"name": "OG Kush", "thc": "19%", "cbd": "0.3%", "effects": "Happy, Relaxed, Uplifted", "origin": "California, USA", "chemicals": "Myrcene, Limonene, Caryophyllene", "image": "https://strain-data.s3.amazonaws.com/ogkush.jpg"}, {"name": "Blue Dream", "thc": "18%", "cbd": "0.1%", "effects": "Relaxed, Creative, Energetic", "origin": "California, USA", "chemicals": "Myrcene, Pinene, Caryophyllene", "image": "https://strain-data.s3.amazonaws.com/bluedream.jpg"}, {"name": "Gelato", "thc": "20%", "cbd": "0.2%", "effects": "Euphoric, Happy, Relaxed", "origin": "Sunset Sherbet x Thin Mint GSC", "chemicals": "Caryophyllene, Limonene, Humulene", "image": "https://strain-data.s3.amazonaws.com/gelato.jpg"}, {"name": "Sour Diesel", "thc": "21%", "cbd": "0.4%", "effects": "Energetic, Happy, Uplifted", "origin": "Unknown", "chemicals": "Limonene, Caryophyllene, Myrcene", "image": "https://strain-data.s3.amazonaws.com/sourdiesel.jpg"}];
+
+    function renderStrains(list) {
+      const container = document.getElementById('strainList');
+      container.innerHTML = '';
+      list.forEach(strain => {
+        container.innerHTML += `
+          <div class="strain-card">
+            <h2>${strain.name}</h2>
+            <img class="strain-img" src="${strain.image}" alt="${strain.name}">
+            <p><strong>THC:</strong> ${strain.thc} | <strong>CBD:</strong> ${strain.cbd}</p>
+            <p><strong>Effects:</strong> ${strain.effects}</p>
+            <p><strong>Origin:</strong> ${strain.origin}</p>
+            <p><strong>Chemical Profile:</strong> ${strain.chemicals}</p>
+            <a class="btn-map" href="https://www.google.com/maps/search/weed+dispensary+near+me" target="_blank">Find Nearby Sellers</a>
+          </div>
+        `;
+      });
+    }
+
+    function filterStrains() {
+      const input = document.getElementById('searchBar').value.toLowerCase();
+      const filtered = strains.filter(s => s.name.toLowerCase().includes(input));
+      renderStrains(filtered);
+    }
+
+    renderStrains(strains);
+  </script>
+</body>
+</html>
